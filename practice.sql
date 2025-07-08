@@ -55,9 +55,48 @@ order by ship_city asc, shipped_date desc;
 select employee_id,
 	count (*)
 from orders
-group by employee_id
+group by employee_id;
 
 -- Conte o número de compras feitas por cada cliente. 
 -- Exiba as colunas customer_id, contact_name e purchases_number. 
 -- Ignore os clientes que não estiverem presentes na tabela. purchase tabela
+
+select o.customer_id, c.contact_name, count (o.order_id) as "pedidos"
+from orders as o
+join customers as c on o.customer_id = c.customer_id
+group by o.customer_id, c.contact_name
+order by pedidos desc;
+
+
+-- Exibir o sobrenome e o nome dos funcionários com data de contratação desconhecida.
+-- a minha base esta diferente da base em questao
+
+select * 
+from employees
+where region is null;
+
+
+-- Para cada categoria, conte o preço médio de seus produtos. 
+-- Exiba somente as categorias para as quais o preço unitário médio é maior 
+-- que o preço unitário médio geral. 
+-- Nomeie as colunas category_name e average_price.
+
+select c.category_name, avg (p.unit_price)
+from products as p
+join categories as c on p.category_id = c.category_id
+group by c.category_name
+HAVING AVG(p.unit_price) > (
+  SELECT AVG(unit_price)
+  FROM products
+);
+
+-- Qual é o total de vendas (unit_price * quantity) por pedido (order_id)?
+select product_id, sum (unit_price * quantity)
+from order_details
+group by product_id;
+
+select *, ROUND((unit_price * quantity)::numeric,2) as "Vendas"
+from order_details
+
+
 
