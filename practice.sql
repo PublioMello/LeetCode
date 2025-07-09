@@ -96,7 +96,33 @@ from order_details
 group by product_id;
 
 select *, ROUND((unit_price * quantity)::numeric,2) as "Vendas"
-from order_details
+from order_details;
+
+-- Mostre o nome do funcionário e o nome do gerente (coluna reports_to) de cada um.
 
 
+SELECT f.first_name || ' ' || f.last_name AS funcionario,
+       g.first_name || ' ' || g.last_name AS gerente
+FROM employees f
+LEFT JOIN employees g ON f.reports_to = g.employee_id;
+
+
+-- Quais os cinco produtos mais vendidos (quantidade)?
+select *
+from order_details;
+
+select *
+from products;
+
+select p.product_name, sum(o.quantity)
+from order_details as o
+Join products as p on o.product_id = p.product_id
+group by p.product_name;
+
+-- Quais clientes nunca fizeram pedidos?
+
+SELECT c.*
+FROM customers c
+LEFT JOIN orders o ON c.customer_id = o.customer_id
+WHERE o.customer_id IS NULL;
 
