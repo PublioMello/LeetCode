@@ -126,3 +126,50 @@ FROM customers c
 LEFT JOIN orders o ON c.customer_id = o.customer_id
 WHERE o.customer_id IS NULL;
 
+
+-- Liste os produtos que pertencem à mesma categoria que o produto “Chai”.
+select *
+from products
+where category_id = 1;
+-- Quais fornecedores fornecem mais de 3 produtos?
+
+select s.company_name, count(p.product_name) as "QTD"
+from products as p
+join suppliers as s on p.supplier_id = s.supplier_id
+group by s.company_name
+Having count(p.product_name) >= 3
+order by "QTD" desc;
+
+-- Mostre os produtos que têm preço acima da média dos produtos.
+
+select *
+from products
+where unit_price >(
+select avg(unit_price) 
+from products)
+order by unit_price asc;
+
+-- Liste os pedidos feitos entre janeiro e março de 1997.
+select *
+from orders
+where shipped_date between '1997-01-01' and '1997-03-31';
+
+-- Para cada país, mostre o número de clientes e o número de pedidos feitos.
+
+-- Crie uma lista dos pedidos com o nome do cliente, o funcionário responsável e o valor total do pedido.
+
+-- Mostre quais categorias têm produtos que já estão descontinuados (discontinued = 1).
+
+-- Liste os nomes dos produtos, o nome da categoria e o nome do fornecedor.
+
+-- Mostre os três clientes com mais pedidos registrados.
+
+-- Calcule o total de vendas por país.
+
+-- Qual funcionário gerou mais vendas?
+
+-- Quais são os 3 produtos com maior faturamento?
+
+-- Qual o ticket médio por pedido (total / número de pedidos)?
+
+-- Crie um ranking de países com base no valor total de pedidos.
