@@ -156,7 +156,32 @@ where shipped_date between '1997-01-01' and '1997-03-31';
 
 -- Para cada país, mostre o número de clientes e o número de pedidos feitos.
 
+select ship_country, count(ship_country) as "Qtd de pedidos"
+from orders
+group by ship_country
+order by "Qtd de pedidos" desc
+limit 10;
+
+
 -- Crie uma lista dos pedidos com o nome do cliente, o funcionário responsável e o valor total do pedido.
+select *
+from customers as c
+left join orders as o on c.customer_id=o.customer_id;
+
+select *
+from orders;
+
+select *
+from order_details;
+
+select c.contact_name as "Client Name", 
+	(e.first_name || ' ' || e.last_name) as "Employee name", 
+	ROUND((od.unit_price*od.quantity*(1-od.discount))::numeric,2) as "Order value"
+from customers c
+join orders as o on c.customer_id=o.customer_id
+join employees as e on o.employee_id = e.employee_id
+join order_details as od on o.order_id = od.order_id
+order by "Order value" desc
 
 -- Mostre quais categorias têm produtos que já estão descontinuados (discontinued = 1).
 
