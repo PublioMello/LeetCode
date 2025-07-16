@@ -181,15 +181,35 @@ from customers c
 join orders as o on c.customer_id=o.customer_id
 join employees as e on o.employee_id = e.employee_id
 join order_details as od on o.order_id = od.order_id
-order by "Order value" desc
+order by "Order value" desc;
 
 -- Mostre quais categorias têm produtos que já estão descontinuados (discontinued = 1).
 
+select * 
+from products
+where discontinued = 1;
+
 -- Liste os nomes dos produtos, o nome da categoria e o nome do fornecedor.
+select *
+from categories;
+
+select *
+from suppliers;
 
 -- Mostre os três clientes com mais pedidos registrados.
-
+select customer_id, count(customer_id)
+from orders
+group by customer_id
+order by count desc
+limit 3;
 -- Calcule o total de vendas por país.
+
+select o.ship_country,
+round(sum(od.unit_price*od.quantity)::numeric, 2) as "Vendas por Pais"
+from orders as o
+left join order_details as od on o.order_id = od.order_id 
+group by o.ship_country
+order by "Vendas por Pais" desc
 
 -- Qual funcionário gerou mais vendas?
 
@@ -198,3 +218,5 @@ order by "Order value" desc
 -- Qual o ticket médio por pedido (total / número de pedidos)?
 
 -- Crie um ranking de países com base no valor total de pedidos.
+
+
