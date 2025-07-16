@@ -185,6 +185,7 @@ order by "Order value" desc
 
 -- Mostre quais categorias têm produtos que já estão descontinuados (discontinued = 1).
 
+testando branches
 -- Liste os nomes dos produtos, o nome da categoria e o nome do fornecedor.
 
 -- Mostre os três clientes com mais pedidos registrados.
