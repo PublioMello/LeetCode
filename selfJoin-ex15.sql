@@ -25,11 +25,15 @@ where w1.temperature> w2.temperature
 
 -- Return the result table in any order.
 
-select sp.name
-from SalesPerson as sp
-where sp.name not in
-(select sp.name
-from SalesPerson as sp
-left join Orders as o on sp.sales_id = o.sales_id
-left join Company as c on o.com_id = c.com_id
-where c.name='RED')
+select
+    sp.name
+from 
+    SalesPerson as sp
+where   
+    sp.name 
+    not in
+        (select sp.name
+        from SalesPerson as sp
+        left join Orders as o on sp.sales_id = o.sales_id
+        left join Company as c on o.com_id = c.com_id
+        where c.name='RED')
