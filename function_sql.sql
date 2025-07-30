@@ -45,3 +45,5 @@ begin
 end $$;
 
 select * from busca_clientes('Owner')
+
+-- drop function busca_clientes;
