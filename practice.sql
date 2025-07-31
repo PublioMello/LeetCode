@@ -209,9 +209,19 @@ round(sum(od.unit_price*od.quantity)::numeric, 2) as "Vendas por Pais"
 from orders as o
 left join order_details as od on o.order_id = od.order_id 
 group by o.ship_country
-order by "Vendas por Pais" desc
+order by "Vendas por Pais" desc;
 
 -- Qual funcionário gerou mais vendas?
+select * from order_details;
+
+select 
+	o.employee_id,
+	Round(sum((od.quantity*od.unit_price*(1-od.discount))):: numeric, 2) as Vendas
+from orders o
+left join order_details od on o.order_id = od.order_id
+group by o.employee_id
+order by vendas desc
+
 
 -- Quais são os 3 produtos com maior faturamento?
 
